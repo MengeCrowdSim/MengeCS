@@ -54,6 +54,14 @@ namespace MengeCS
             _z = z;
         }
 
+        /// <summary>
+        /// Reports the magnitude of the vector.
+        /// </summary>
+        /// <returns>The vector's magnitude.</returns>
+        public float Length() {
+            return (float)Math.Sqrt(_x * _x + _y * _y + _z * _z);
+        }
+
         public float X
         {
             get { return _x; }

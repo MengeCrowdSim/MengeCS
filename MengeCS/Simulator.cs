@@ -81,6 +81,8 @@ namespace MengeCS
                 _agents[i].Position.Set(x, y, z);
                 MengeWrapper.GetAgentOrient((uint)i, ref x, ref y);
                 _agents[i].Orientation.Set(x, y);
+                MengeWrapper.GetAgentVelocity((uint)i, ref x, ref y, ref z);
+                _agents[i].Velocity.Set(x, y, z);
             }
             return true;
         }

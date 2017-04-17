@@ -32,7 +32,8 @@ namespace MengeCSExe
                     {
                         Agent agt = sim.GetAgent(a);
                         Vector3 p = agt.Position;
-                        System.Console.WriteLine("\tAgent {0} at ({1}, {2})", a, p.X, p.Z);
+                        Vector3 v = agt.Velocity;
+                        System.Console.WriteLine("\tAgent {0} at ({1}, {2} moving a5 {3} m/s)", a, p.X, p.Z, v.Length());
                     }
                 }
 
