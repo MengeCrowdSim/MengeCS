@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace MengeCS
@@ -21,6 +22,7 @@ namespace MengeCS
         {
             if (MengeWrapper.InitSimulator(behaveXml, sceneXml, model, null))
             {
+                FindTriggers();
                 uint count = MengeWrapper.AgentCount();
                 for (uint i = 0; i < count; ++i)
                 {
@@ -88,8 +90,32 @@ namespace MengeCS
         }
 
         /// <summary>
+        /// Populates the trigger list from the simulator.
+        /// </summary>
+        private void FindTriggers()
+        {
+            _triggers = new List<ExternalTrigger>();
+            int triggerCount = MengeWrapper.ExternalTriggerCount();
+            for (int i = 0; i < triggerCount; ++i)
+            {
+                string s = Marshal.PtrToStringAnsi(MengeWrapper.ExternalTriggerName(i));
+                _triggers.Add(new ExternalTrigger(s));
+            }
+        }
+
+        /// <summary>
         /// The agents in the simulation.
         /// </summary>
         private List<Agent> _agents;
+
+        /// <summary>
+        /// Read-only access to the set of triggers.
+        /// </summary>
+        public List<ExternalTrigger> Triggers {  get { return _triggers; } }
+
+        /// <summary>
+        /// The external triggers exposed by the simulator.
+        /// </summary>
+        private List<ExternalTrigger> _triggers;
     }
 }

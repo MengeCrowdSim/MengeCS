@@ -1,0 +1,11 @@
+
+----------------------------------------------------------------
+	April 23, 2017
+	
+	New Features
+		- Expose the external triggers functionality created in Menge 
+			(see here: https://github.com/MengeCrowdSim/Menge/pull/57).
+		- Add short example to exercising program to show invoking external triggers.
+	Bugs
+		- Corrected a build property; the debug build wouldn't run against 64-bit dlls because it
+			was misconfigured to x86 instead of AnyCpu.
