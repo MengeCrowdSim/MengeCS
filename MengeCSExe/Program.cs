@@ -11,8 +11,8 @@ namespace MengeCSExe
     {
         static void Main(string[] args)
         {
-            //Run4Square();
-            RunUserEvent();
+            Run4Square();
+            //RunUserEvent();
         }
 
         /// <summary>
@@ -28,8 +28,13 @@ namespace MengeCSExe
             if (sim.Initialize(behaveXml, sceneXml, "orca"))
             {
                 System.Console.WriteLine("New simulator created.");
-                System.Console.WriteLine("\t{0} agents", sim.AgentCount);
-                for (int i = 0; i < 20; ++i)
+                System.Console.WriteLine("\tBFSM has {0} states.", sim.StateCount);
+                for (uint i = 0; i < sim.StateCount; ++i)
+                {
+                    System.Console.WriteLine("\t\tState: {0}: {1}", i, sim.GetStateName(i));
+                }
+                    System.Console.WriteLine("\t{0} agents", sim.AgentCount);
+                for (int i = 0; i < 1; ++i)
                 {
                     System.Console.WriteLine("Step {0}", i + 1);
                     if (!sim.DoStep())
@@ -42,7 +47,11 @@ namespace MengeCSExe
                         Agent agt = sim.GetAgent(a);
                         Vector3 p = agt.Position;
                         Vector3 v = agt.Velocity;
-                        System.Console.WriteLine("\tAgent {0} at ({1}, {2} moving a5 {3} m/s)", a, p.X, p.Z, v.Length());
+                        Vector2 o = agt.Orientation;
+                        System.Console.WriteLine(
+                            "\tAgent {0} at ({1}, {2}), moving at {3} m/s, facing ({4}, {5}), " +
+                            "in state \"{6}\"", 
+                            a, p.X, p.Z, v.Length(), o.X, o.Y, sim.GetStateName(agt.StateId));
                     }
                 }
 
@@ -67,6 +76,7 @@ namespace MengeCSExe
             {
                 System.Console.WriteLine("Simulator has {0} external triggers", sim.Triggers.Count);
                 System.Console.WriteLine("New simulator created.");
+                System.Console.WriteLine("BFSM has {0} states.", sim.StateCount);
                 System.Console.WriteLine("\t{0} agents", sim.AgentCount);
                 for (int i = 0; i < 20; ++i)
                 {
@@ -88,10 +98,11 @@ namespace MengeCSExe
                         Agent agt = sim.GetAgent(a);
                         Vector3 p = agt.Position;
                         Vector3 v = agt.Velocity;
-                        System.Console.WriteLine("\tAgent {0} at ({1}, {2} moving a5 {3} m/s)", a, p.X, p.Z, v.Length());
+                        System.Console.WriteLine(
+                            "\tAgent {0} at ({1}, {2}) moving at {3} m/s.", 
+                            a, p.X, p.Z, v.Length());
                     }
                 }
-
             }
             else
             {

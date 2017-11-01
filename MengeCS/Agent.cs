@@ -24,6 +24,12 @@ namespace MengeCS
         public Vector3 Velocity { get { return _vel; } }
         internal Vector3 _vel;
 
+        public Vector2 PrefVelocity { get { return _prefVel; } }
+        internal Vector2 _prefVel;
+
+        public uint StateId { get { return _state_id; } }
+        internal uint _state_id;
+
         public Vector2 Orientation { get { return _orient; } }
         internal Vector2 _orient;
 

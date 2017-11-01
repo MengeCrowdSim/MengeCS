@@ -1,4 +1,8 @@
+	???? ??, ????
 
+	New Features
+		- Extend the C# bindings to encompass the new C-wrapper (10/31/2017)
+			(see here: https://github.com/MengeCrowdSim/Menge/pull/80)
 ----------------------------------------------------------------
 	April 23, 2017
 	

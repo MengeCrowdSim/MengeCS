@@ -36,6 +36,9 @@ namespace MengeCS
                     agt._orient = new Vector2(x, y);
                     agt._class = MengeWrapper.GetAgentClass(i);
                     agt._radius = MengeWrapper.GetAgentRadius(i);
+                    MengeWrapper.GetAgentPrefVelocity(i, ref x, ref y);
+                    agt._prefVel = new Vector2(x, y);
+                    MengeWrapper.GetAgentState(i, ref agt._state_id);
                     _agents.Add(agt);
                 }
                     return true;
@@ -45,6 +48,22 @@ namespace MengeCS
                 System.Console.WriteLine("Failed to initialize simulator.");
             }
             return false;
+        }
+
+        /// <summary>
+        /// Reports the number of states in the simulator's BFSM.
+        /// </summary>
+        public int StateCount { get { return (int)MengeWrapper.StateCount(); } }
+
+        /// <summary>
+        /// Reports the name of the state with the given id.
+        /// </summary>
+        /// <param name="state_id">The state id to query.</param>
+        /// <returns>The name of the state.</returns>
+        public String GetStateName(uint state_id)
+        {
+            IntPtr char_ptr = MengeWrapper.GetStateName((uint)state_id);
+            return Marshal.PtrToStringAnsi(char_ptr);
         }
 
         /// <summary>
@@ -81,10 +100,13 @@ namespace MengeCS
                 float x = 0, y = 0, z = 0;
                 MengeWrapper.GetAgentPosition((uint)i, ref x, ref y, ref z);
                 _agents[i].Position.Set(x, y, z);
-                MengeWrapper.GetAgentOrient((uint)i, ref x, ref y);
-                _agents[i].Orientation.Set(x, y);
                 MengeWrapper.GetAgentVelocity((uint)i, ref x, ref y, ref z);
                 _agents[i].Velocity.Set(x, y, z);
+                MengeWrapper.GetAgentPrefVelocity((uint)i, ref x, ref y);
+                _agents[i].PrefVelocity.Set(x, y);
+                MengeWrapper.GetAgentState((uint)i, ref _agents[i]._state_id);
+                MengeWrapper.GetAgentOrient((uint)i, ref x, ref y);
+                _agents[i].Orientation.Set(x, y);
             }
             return true;
         }

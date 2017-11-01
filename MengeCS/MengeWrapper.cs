@@ -22,6 +22,12 @@ namespace MengeCS
         public static extern bool DoStep();
 
         [DllImport("MengeCore")]
+        public static extern IntPtr GetStateName(uint i);
+
+        [DllImport("MengeCore")]
+        public static extern uint StateCount();
+
+        [DllImport("MengeCore")]
         public static extern uint AgentCount();
 
         [DllImport("MengeCore")]
@@ -29,6 +35,12 @@ namespace MengeCS
 
         [DllImport("MengeCore")]
         public static extern bool GetAgentVelocity(uint i, ref float x, ref float y, ref float z);
+
+        [DllImport("MengeCore")]
+        public static extern bool GetAgentPrefVelocity(uint i, ref float x, ref float y);
+
+        [DllImport("MengeCore")]
+        public static extern bool GetAgentState(uint i, ref uint state_id);
 
         [DllImport("MengeCore")]
         public static extern bool GetAgentOrient(uint i, ref float x, ref float y );
